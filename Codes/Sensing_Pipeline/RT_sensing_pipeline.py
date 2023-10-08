@@ -1,7 +1,7 @@
 import multiprocessing as mp
+import os
 import serial
 import struct
-import pandas as pd
 import binascii
 import can
 from can.bus import BusState
@@ -10,8 +10,9 @@ from utils import *
 
 # ------------ Parameter tuning -------------
 scenario = "Test_"
+date = "23_08_25_"
 cnt_exp = 1
-num = 14 # Number of sensors
+num = 14  # Number of sensors
 times = 1
 # COM port for Arduino
 COM = 'COM11'
@@ -193,7 +194,7 @@ def detectMag(listFrames, listFrames2):
                                     # print('Sensor %d: No. %d detect a S' % (i+1, no))
                         else:
                             LastRAW_z[i] = raw_z
-                    file1 = open("Data/23_9_25_TrafficJam/results.txt", "a")
+                    file1 = open("Data/" + date + scenario + str(times) + "/results.txt", "a")
                     if np.sum(np.array(N_flag_z)) > 0:
                         # record tag start
                         no_z += 1
@@ -210,16 +211,12 @@ def detectMag(listFrames, listFrames2):
                         cnt_mag += 1
                         if cnt_mag == 3:
                             print("Tag info:", tag_z)
-                            calculate_ratio(tag_z, t1, delta_time, speed_list, angle_list)
+                            calculate_ratio(file1, tag_z, t1, delta_time, speed_list, angle_list)
                             cnt_mag = 0
                             tag_z.clear()
 
                     if np.sum(np.array(S_flag_z)) > 0:
                         no_z += 1
-                        # t_s = process_time()
-
-                        # t_e = process_time()
-                        # print("Time of speed:", t_e-t_s)
                         print(str(datetime.datetime.now()) + ":", "speed is " + str(speed_list[-1][1]) + ";",
                               "SWA is " + str(angle_list[-1][1]), 'Z axis detects No. %d S polarity;' % no_z,
                               "peak index is " + str(cnt) + '\n')
@@ -232,7 +229,7 @@ def detectMag(listFrames, listFrames2):
                         cnt_mag += 1
                         if cnt_mag == 3:
                             print("Tag info:", tag_z)
-                            calculate_ratio(tag_z, t1, delta_time, speed_list, angle_list)
+                            calculate_ratio(file1, tag_z, t1, delta_time, speed_list, angle_list)
                             cnt_mag = 0
                             tag_z.clear()
                 n = n + 1
@@ -240,33 +237,20 @@ def detectMag(listFrames, listFrames2):
 
     except KeyboardInterrupt:
         print("Output csv")
-        test = pd.DataFrame(columns=raw_name, data=raw_result)
-        test.to_csv("Data/23_9_25_TrafficJam/RawData_" + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + ".csv")
-        test_z = pd.DataFrame(columns=["THR_Z"], data=slope_thrd_z)
-        test_z.to_csv("Data/23_9_25_TrafficJam/THR_Z_" + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + ".csv")
+        save_path = "Data/" + date + scenario + str(cnt_exp) + "/"
+        os.makedirs(save_path, exist_ok=True)  # create save path if not exists
+        suffix = "_" + str(cur_speed) + "kmh_" + str(times)
 
-        test_speed = pd.DataFrame(columns=["Time Stamp", "Speed"], data=speed_list)
-        test_speed.to_csv(
-            "Data/23_9_25_TrafficJam/RawSpeed_" + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + ".csv")
-        test_SWA = pd.DataFrame(columns=["Time Stamp", "SWA"], data=angle_list)
-        test_SWA.to_csv(
-            "Data/23_9_25_TrafficJam/RawSWA_" + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + ".csv")
+        save_dataframe(save_path + "RawData" + suffix + ".csv", raw_name, raw_result)
+        save_dataframe(save_path + "THR_Z" + suffix + ".csv", ["THR_Z"], slope_thrd_z)
+        save_dataframe(save_path + "RawSpeed" + suffix + ".csv", ["Time Stamp", "Speed"], speed_list)
+        save_dataframe(save_path + "RawSWA" + suffix + ".csv", ["Time Stamp", "SWA"], angle_list)
 
         for i in range(num):
-            test_z = pd.DataFrame(columns=["Slope"], data=slope_list_z[i])
-            test2_z = pd.DataFrame(columns=["Raw data"], data=raw_list_z[i])
-            test3_z = pd.DataFrame(columns=["Index"], data=AuxiliaryNum_z[i])
-            test_z.to_csv(
-                'Data/23_9_25_TrafficJam/Slope_Z_' + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + "_S" + str(
-                    i + 1) + '.csv')
-            test2_z.to_csv(
-                'Data/23_9_25_TrafficJam/Raw_Z_' + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + "_S" + str(
-                    i + 1) + '.csv')
-            test3_z.to_csv(
-                'Data/23_9_25_TrafficJam/Num_Z_' + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + "_S" + str(
-                    i + 1) + '.csv')
-        print("Exited")
+            save_dataframe(save_path + "Slope_Z" + suffix + "_Sensor" + str(i + 1) + ".csv", ["Slope"], slope_list_z[i])
+            save_dataframe(save_path + "Raw_Z" + suffix + "_Sensor" + str(i + 1) + ".csv", ["Raw data"], raw_list_z[i])
 
+        print("Exited")
 
 
 if __name__ == '__main__':

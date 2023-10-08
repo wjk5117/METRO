@@ -2,6 +2,7 @@ import datetime
 import numpy as np
 import time
 import math
+import pandas as pd
 
 
 def gaussian(x, pos, wid):
@@ -18,12 +19,11 @@ def getInterval(t1, t2):
         return
 
 
-def calculate_ratio(tag, end_time, sensor_t, s_list, ang_list):
+def calculate_ratio(file1, tag, end_time, sensor_t, s_list, ang_list):
     global cnt_exp
     polarity = tag[0][2] + tag[1][2] + tag[2][2]
     dis_1, dis_2, ratio, dis_noSWA1, dis_noSWA2, ratio_noSWA = calculate_dis(tag, sensor_t, s_list, ang_list)
     t2 = time.time() * 1000 * 1000
-    file1 = open("Data/23_9_25_TrafficJam/results.txt", "a")  # append mode
     t = str(datetime.datetime.now())
 
     speed_info = "(" + str(tag[0][3]) + ", " + str(tag[1][3]) + ", " + str(tag[2][3]) + ")"
@@ -56,3 +56,8 @@ def calculate_dis(tag, sensor_t, s_list, ang_list):
             dis_noSWA[i] += v / 3.6 * sensor_t
             dis[i] += ((v / 3.6 * sensor_t) * math.cos(abs(ang - angles[0][0][1]) * math.pi / 180))
     return dis[0], dis[1], dis[1] / dis[0], dis_noSWA[0], dis_noSWA[1], dis_noSWA[1] / dis_noSWA[0]
+
+
+def save_dataframe(filename: str, columns: list, list_data: list) -> None:
+    df = pd.DataFrame(columns=columns, data=list_data)
+    df.to_csv(filename)
