@@ -9,10 +9,11 @@ from scipy.signal import savgol_filter
 from utils import *
 
 # ------------ Parameter tuning -------------
-scenario = "Traffic_Jam_"
+scenario = "Test_"
 cnt_exp = 1
-num = 4  # Number of sensors
-times = 6
+num = 14 # Number of sensors
+times = 1
+# COM port for Arduino
 COM = 'COM11'
 
 # --------- Empirical Parameters & Thresholds ---------
@@ -27,7 +28,7 @@ default_speed = 10
 cur_speed = 20
 delta_t = 0.0025 * 50 * default_speed / cur_speed
 
-# Constants & Globals
+# Constants and Globals
 raw_result = []
 raw_name = ['Time Stamp'] + ['Sensor ' + str(i) for i in range(1, num + 1)]
 no_x, no_z = 0, 0  # total number of peaks
@@ -265,6 +266,7 @@ def detectMag(listFrames, listFrames2):
                 'Data/23_9_25_TrafficJam/Num_Z_' + scenario + "_" + str(cur_speed) + "kmh_" + str(times) + "_S" + str(
                     i + 1) + '.csv')
         print("Exited")
+
 
 
 if __name__ == '__main__':
