@@ -1,7 +1,10 @@
 #include "Adafruit_MLX90393.h"
-#define num 14 // Total 14 MLX90393 sensors
+
+// Total 14 MLX90393 sensors
+#define num 14 
 Adafruit_MLX90393 sensor[num];
 
+// CS pins of Teensy 4.1 MCU
 int CS[num] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13};
 float data_array[num*3+1];
 
@@ -18,6 +21,7 @@ void setup()
   for (int i = 0; i < num; ++i)
   {
     sensor[i] = Adafruit_MLX90393();
+    // Use SPI protocol
     while (!sensor[i].begin_SPI(CS[i]))
     {
       Serial.print("No sensor ");
@@ -25,7 +29,8 @@ void setup()
       Serial.println(" found ... check your wiring?");
       delayMicroseconds(500);
     }
-
+    
+    // OSR: 0, Filter: 2
     while (!sensor[i].setOversampling(MLX90393_OSR_0))
     {
       Serial.print("Sensor ");
@@ -38,7 +43,6 @@ void setup()
       Serial.print("Sensor ");
       Serial.print(i + 1);
       Serial.println(" reset filter!");
-      // delayMicroseconds(500);
     }
   }
 }
@@ -58,6 +62,6 @@ void loop()
   }
   // record time interval
   data_array[3*num] = micros() - start_time;
-  // write bytes
+  // write bytes to PC
   Serial.write((byte*)(data_array), 4*(3*num+1)); 
 }
