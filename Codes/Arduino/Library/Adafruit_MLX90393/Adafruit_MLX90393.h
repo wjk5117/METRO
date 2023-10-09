@@ -34,7 +34,6 @@
 #define MLX90393_HALL_CONF (0x0C)     /**< Hall plate spinning rate adj. */
 #define MLX90393_STATUS_OK (0x00)     /**< OK value for status response. */
 #define MLX90393_STATUS_SMMODE (0x08) /**< SM Mode status response. */
-#define MLX90393_STATUS_SBMODE (0x05) /**< SM Mode status response. */
 #define MLX90393_STATUS_RESET (0x01)  /**< Reset value for status response. */
 #define MLX90393_STATUS_ERROR (0xFF)  /**< OK value for status response. */
 #define MLX90393_STATUS_MASK (0xFC)   /**< Mask for status OK checks. */

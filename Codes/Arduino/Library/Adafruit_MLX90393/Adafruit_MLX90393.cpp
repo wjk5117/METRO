@@ -59,7 +59,7 @@ boolean Adafruit_MLX90393::begin_SPI(uint8_t cs_pin, SPIClass *theSPI) {
     _cspin = cs_pin;
       // MODOFIED: freq from 1M to 5M
     spi_dev = new Adafruit_SPIDevice(cs_pin,
-                                     10000000,               // frequency
+                                     2000000,               // frequency
                                      SPI_BITORDER_MSBFIRST, // bit order
                                      SPI_MODE3,             // data mode
                                      theSPI);
@@ -74,19 +74,19 @@ bool Adafruit_MLX90393::_init(void) {
     //Serial.println("Start");
     
     if (!exitMode()){
-        //Serial.println("Fail to activate exit mode");
+        Serial.println("Fail to activate exit mode");
         return false;
     }
     
     
   if (!reset()){
-      // Serial.println("Fail to activate reset");
+      Serial.println("Fail to activate reset");
       return false;
   }
 
   /* Set gain and sensor config. */
-  if (!setGain(MLX90393_GAIN_1X)){
-     //Serial.println("Fail to set gain");
+  if (!setGain(MLX90393_GAIN_1X)) {
+      Serial.println("Fail to set gain");
     return false;
   }
 
@@ -380,8 +380,7 @@ bool Adafruit_MLX90393::readData(float *x, float *y, float *z) {
   if (!startSingleMeasurement())
     return false;
   // See MLX90393 Getting Started Guide for fancy formula
-  // tconv = \
-  , DIG_FILT, OSR2, ZYXT)
+  // tconv = f(OSR, DIG_FILT, OSR2, ZYXT)
   // For now, using Table 18 from datasheet
 //  Serial.println(mlx90393_tconv[_dig_filt][_osr]);
   delayMicroseconds(mlx90393_tconv[_dig_filt][_osr]*1000+125);
