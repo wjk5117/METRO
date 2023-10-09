@@ -10,20 +10,15 @@ from utils import *
 def LMS(file):
     # data from the front sensor (with noise from wheel rotation)
     sx, sy, sz = xyz_sensor(file, "Front_wheel_sensor")
-
     # data from the reference sensor (pure noise)
     nx, ny, nz = xyz_sensor(file, "Ref_sensor")
     N = len(nx)
     # coodinate alignment
     new_x, new_y, new_z = rotation3d(nx, ny, nz)
     # scale the data based on the raw data
-    scale_THR = 28
-    new_z = [new_z[i] + scale_THR for i in range(len(new_z))]
-
-
-    # plt.plot(sz)
-    # plt.plot(new_z)
-    # plt.show()
+    scale_THR = 1
+    offset_THR = 28
+    new_z = [scale_THR * new_z[i] + offset_THR for i in range(len(new_z))]
 
     NFilt = 4
     x = pa.input_from_history(sz, NFilt) # input matrix
@@ -42,72 +37,14 @@ def LMS(file):
     plt.plot(y,"g", label="Output noise");plt.legend()
     plt.subplot(313);plt.title("Filterred signal (raw data - output noise)");plt.xlabel("Sample")
     plt.plot(sz[NFilt-1:]-y,"r", label="filterred signal");plt.legend()
-    # plt.subplot(414);plt.title("Signal after direct subtraction (raw data - raw reference data)");plt.xlabel("Sample")
-    # plt.plot([sz[i]-nx[i] for i in range(NFilt-1, len(nx))],"r", label="Subtracted signal");plt.legend()
     plt.tight_layout()
-    plt.show()
-
-    fs = 20
-    sz_part = sz[2000:6000]
-    d_part = d[2000:6000]
-    y_part = y[2000:6000]
-    denoise = sz_part - y_part
-    x = [i/400 for i in range(len(sz_part))]
-    # 
-    plt.plot(x, sz_part)
-    # plt.plot(x, )
-    plt.tick_params(labelsize=fs)
-    # plt.legend(fontsize=20)
-    # plt.xticks(x, )
-    plt.xlabel(r'Time (s)', fontsize=fs)
-    plt.ylabel(r'Magnetometer reading (uT)', fontsize=fs)
-    # plt.title(title, fontsize=fs)
-    plt.show()
-
-    plt.plot(x, d_part)
-    # plt.plot(x, )
-    plt.tick_params(labelsize=fs)
-    # plt.legend(fontsize=20)
-    # plt.xticks(x, )
-    plt.xlabel(r'Time (s)', fontsize=fs)
-    plt.ylabel(r'Magnetometer reading (uT)', fontsize=fs)
-    # plt.title(title, fontsize=fs)
-    plt.show()
-
-    plt.plot(x, y_part)
-    # plt.plot(x, )
-    plt.tick_params(labelsize=fs)
-    # plt.legend(fontsize=20)
-    # plt.xticks(x, )
-    plt.xlabel(r'Time (s)', fontsize=fs)
-    plt.ylabel(r'Magnetometer reading (uT)', fontsize=fs)
-    # plt.title(title, fontsize=fs)
-    plt.show()
-
-    plt.plot(x, denoise)
-    # plt.plot(x, )
-    plt.tick_params(labelsize=fs)
-    # plt.legend(fontsize=20)
-    # plt.xticks(x, )
-    plt.xlabel(r'Time (s)', fontsize=fs)
-    plt.ylabel(r'Magnetometer reading (uT)', fontsize=fs)
-    # plt.title(title, fontsize=fs)
     plt.show()
 
     # return sz[NFilt-1:]-y, the filterred signal with noise removed
     return sz[NFilt-1:]-y
 
 
-
-def readSensor(data, t_list, idx):  # To simulate the reading process
-    if idx >= len(data):
-        return -1, -1
-    z = data[idx]
-    t = t_list[idx]
-    time.sleep(0.002)
-    return z, t
-
-
+# Rotation transformation
 def rotation3d(dx2, dy2, dz2):
     # rotation matrix
     alpha = -math.pi/2 #
@@ -125,21 +62,71 @@ def rotation3d(dx2, dy2, dz2):
     return new_x, new_y, new_z
 
 
-cnt = 1
-sig_list = []
+# Determine the scale and offset thresholds
+def determine_THR(x, y):
+    x = np.array(x)
+    y = np.array(y)
+
+    # Calculate the scale_THR and offset_THR using linear regression
+    n = len(x)
+    mean_x = np.mean(x)
+    mean_y = np.mean(y)
+
+    # Calculate scale_THR using the formula
+    numerator = np.sum((x - mean_x) * (y - mean_y))
+    denominator = np.sum((x - mean_x) ** 2)
+    scale_THR = numerator / denominator
+    # Calculate offset_THR using the formula
+    offset_THR = mean_y - scale_THR * mean_x
+
+    return scale_THR, offset_THR
+
+
 # Real-time LMS filter
-def RT_LMS(front_z, wheel_z):
-    if len(sig_list) < n:
-            sig_list.append(front_z)
-    if len(sig_list) == n:
-        x_input = pa.input_from_history(sig_list, n)[0]
-        print(x_input)
-        d = wheel_z
-        sig_list.pop(0)
-        # Simulate real-time prediction and update the filter
-        y = filter_min_error.predict(x_input)
-        filter_min_error.adapt(d, x_input)
-        return front_z-y
+def real_time_LMS(front_x, front_y, front_z, ref_x, ref_y, ref_z):
+    '''
+    implement the LMS function in real time
+    return the filterred data
+    '''
+
+    # LMS filter parameters
+    NFilt = 4
+    mu = 0.000001
+    f = pa.filters.FilterLMS(n=NFilt, mu=mu, w="random")
+    
+    # Coordinate alignment
+    new_ref_x, new_ref_y, new_ref_z = rotation3d(ref_x, ref_y, ref_z)
+
+    # Determine the scale and offset thresholds
+    scale_THR_x, offset_THR_x = determine_THR(new_ref_x, front_x)
+    scale_THR_y, offset_THR_y = determine_THR(new_ref_y, front_y)
+    scale_THR_z, offset_THR_z = determine_THR(new_ref_z, front_z)
+
+    # Data scaling and offsetting
+    new_ref_x = [scale_THR_x * new_ref_x[i] + offset_THR_x for i in range(len(new_ref_x))]
+    new_ref_y = [scale_THR_y * new_ref_y[i] + offset_THR_y for i in range(len(new_ref_y))]
+    new_ref_z = [scale_THR_z * new_ref_z[i] + offset_THR_z for i in range(len(new_ref_z))]
+
+    # Update the input matrix
+    x = pa.input_from_history(front_x, NFilt)
+    # Apply the LMS filter
+    d = new_ref_x[NFilt-1:]
+    pred_x, e, w = f.run(d, x)
+
+    y = pa.input_from_history(front_y, NFilt)
+    d = new_ref_y[NFilt-1:]
+    pred_y, e, w = f.run(d, y)
+
+    z = pa.input_from_history(front_z, NFilt)
+    d = new_ref_z[NFilt-1:]
+    pred_z, e, w = f.run(d, z)
+
+    denoise_x = front_x[NFilt-1:]-pred_x
+    denoise_y = front_y[NFilt-1:]-pred_y
+    denoise_z = front_z[NFilt-1:]-pred_z
+    return denoise_x, denoise_y, denoise_z
+
+
 
 
 if __name__ == "__main__":

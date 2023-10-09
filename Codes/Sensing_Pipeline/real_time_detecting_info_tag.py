@@ -14,11 +14,12 @@ import can
 from can.bus import BusState
 from can.interfaces.pcan.basic import *
 from scipy.signal import savgol_filter
+from AMN_denoise import *
 from utils import *
 
 
 # ------------Experiment Settings-------------
-scenario = "Test_"
+scenario = "Detecting_info_tag_"
 cnt_exp = 1
 # Number of sensors
 num = 14
@@ -68,8 +69,10 @@ current = 0
 
 tag_x = []
 cnt_mag = 0
-fs = 350
 speed_list, angle_list = [], []
+# For denoising wheel noise
+denoise_list_lx, denoise_list_ly, denoise_list_lz, denoise_list_rx, denoise_list_ry, denoise_list_rz = ([] for _ in range(6))
+ref_list_lx, ref_list_ly, ref_list_lz, ref_list_rx, ref_list_ry, ref_list_rz = ([] for _ in range(6))
 
 
 # Get velocity and steering wheel angle data (SWA) from CAN Bus
@@ -123,6 +126,43 @@ def detectMag(listFrames, listFrames2):
                 t.append(current)
                 interval, = struct.unpack('f', data[(12 * num):(4 + 12 * num)])
                 current += interval / 1000 / 1000
+
+                '''
+                Denoise the wheel noise with a slide window of 50 points, step size = 1 point
+                '''
+                # default left front sensor: sensor 6 (index 5)
+                # default left reference sensor: sensor 7 (index 6)
+                denoise_list_lx.append(sensors[5, 0])
+                ref_list_lx.append(sensors[6, 0])
+                denoise_list_ly.append(sensors[5, 1])
+                ref_list_ly.append(sensors[6, 1])
+                denoise_list_lz.append(sensors[5, 2])
+                ref_list_lz.append(sensors[6, 2])
+
+                # default right front sensor: sensor 13 (index 12)
+                # default right reference sensor: sensor 14 (index 13)
+                denoise_list_rx.append(sensors[12, 0])
+                ref_list_rx.append(sensors[13, 0])
+                denoise_list_ry.append(sensors[12, 1])
+                ref_list_ry.append(sensors[13, 1])
+                denoise_list_rz.append(sensors[12, 2])
+                ref_list_rz.append(sensors[13, 2])
+
+                if len(denoise_list_lx) == 50:
+                    # denoise left front sensor data
+                    denoised_lx, denoised_ly, denoised_lz = real_time_LMS(denoise_list_lx, denoise_list_ly, denoise_list_lz, ref_list_lx, ref_list_ly, ref_list_lz)
+                    # denoise right front sensor data
+                    denoised_rx, denoised_ry, denoised_rz = real_time_LMS(denoise_list_rx, denoise_list_ry, denoise_list_rz, ref_list_rx, ref_list_ry, ref_list_rz)
+                    # update the denoised data
+                    sensors[5, 0], sensors[5, 1], sensors[5, 2] = denoised_lx[-1], denoised_ly[-1], denoised_lz[-1]
+                    # denoised right front sensor data
+                    sensors[12, 0], sensors[12, 1], sensors[12, 2] = denoised_rx[-1], denoised_ry[-1], denoised_rz[-1]
+                    # update the denoise list
+                    denoise_list_lx, denoise_list_ly, denoise_list_lz = denoise_list_lx[1:], denoise_list_ly[1:], denoise_list_lz[1:]
+                    denoise_list_rx, denoise_list_ry, denoise_list_rz = denoise_list_rx[1:], denoise_list_ry[1:], denoise_list_rz[1:]
+                    # update the reference list
+                    ref_list_lx, ref_list_ly, ref_list_lz = ref_list_lx[1:], ref_list_ly[1:], ref_list_lz[1:]
+                    ref_list_rx, ref_list_ry, ref_list_rz = ref_list_rx[1:], ref_list_ry[1:], ref_list_rz[1:]
 
                 # buffer some x-axis data points before starting the detection
                 if n <= max(wnd, SG_wnd):

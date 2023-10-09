@@ -64,14 +64,14 @@ def calculate_dis(tag, sensor_t, s_list, ang_list):
 
 
 # Read the raw magnetic field data of one sensor from the csv file
-def xyz_sensor(file_name, sensor_num, flag=0):
+def xyz_sensor(file_name, sensor_name, flag=0):
     file = pd.read_csv(file_name)
     df = pd.DataFrame(file)
     total_sensor_list = []
     sensor_x, sensor_y, sensor_z = [], [], []
     for i in range(len(df)):
         document = df[i:i+1]
-        sensor = list(map(float, document[sensor_num][i][1:-1].split(', ')))
+        sensor = list(map(float, document[sensor_name][i][1:-1].split(', ')))
         sensor_x.append(sensor[0])
         sensor_y.append(sensor[1])
         sensor_z.append(sensor[2])
