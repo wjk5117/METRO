@@ -1,0 +1,13 @@
+Python packages required for METRO
+Install using 'pip install <package-name>'
+
+1. python-can
+2. pyserial
+3. multiprocess
+4. pandas
+5. numpy
+6. matplotlib
+7. scipy
+8. padasip
+9. scikit-learn
+10. seaborn
