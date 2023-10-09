@@ -40,7 +40,8 @@ amp_thrd_x = ([1.5] * num for _ in range(1))
 # Speed info: km/h
 default_speed = 10
 cur_speed = 20
-# Time threshold to eliminate the duplicate detection of the same magnet from two adjacent sensors
+# Time threshold to eliminate the duplicate detection of 
+# the same magnet from two adjacent sensors
 delta_t = 0.0025 * 50 * default_speed / cur_speed
 
 
@@ -258,7 +259,6 @@ def detectMag(listFrames, listFrames2):
                     if np.sum(np.array(N_flag_x)) > 0:
                         # record tag start
                         no_x += 1
-                        # speed, angle = listFrames[-1][1], listFrames2[-1][1]
                         print(str(datetime.datetime.now()) + ":", "speed is " + str(speed_list[-1][1]) + ";",
                               "SWA is " + str(angle_list[-1][1]) + ";", 'x axis detects No. %d N;' % no_x,
                               "peak index is " + str(cnt) + '\n')

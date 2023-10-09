@@ -63,7 +63,7 @@ def calculate_dis(tag, sensor_t, s_list, ang_list):
     return dis[0], dis[1], dis[1] / dis[0], dis_noSWA[0], dis_noSWA[1], dis_noSWA[1] / dis_noSWA[0]
 
 
-# Read the raw magnetic field data of one sensor from the csv file
+# Read the raw three-axes magnetic field data of one sensor from the csv file
 def xyz_sensor(file_name, sensor_name, flag=0):
     file = pd.read_csv(file_name)
     df = pd.DataFrame(file)

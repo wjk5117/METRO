@@ -44,44 +44,6 @@ def LMS(file):
     return sz[NFilt-1:]-y
 
 
-# Rotation transformation
-def rotation3d(dx2, dy2, dz2):
-    # rotation matrix
-    alpha = -math.pi/2 #
-    beta = math.pi/2  #
-    gamma = math.pi/2 # 
-    rotation_mat = np.array(
-    [
-        [math.cos(alpha)*math.cos(gamma)-math.cos(beta)*math.sin(alpha)*math.sin(gamma), math.sin(alpha)*math.cos(gamma)+math.cos(beta)*math.cos(alpha)*math.sin(gamma), math.sin(beta)*math.sin(gamma)], 
-        [-math.cos(alpha)*math.sin(gamma)-math.cos(beta)*math.sin(alpha)*math.cos(gamma), -math.sin(alpha)*math.sin(gamma)+math.cos(beta)*math.cos(alpha)*math.cos(gamma), math.sin(beta)*math.cos(gamma)],
-        [math.sin(beta)*math.sin(alpha), -math.sin(beta)*math.cos(alpha), math.cos(beta)]
-    ])
-    xyz = np.array([dx2, dy2, dz2])
-    new_x, new_y, new_z = np.dot(rotation_mat, xyz)
-
-    return new_x, new_y, new_z
-
-
-# Determine the scale and offset thresholds
-def determine_THR(x, y):
-    x = np.array(x)
-    y = np.array(y)
-
-    # Calculate the scale_THR and offset_THR using linear regression
-    n = len(x)
-    mean_x = np.mean(x)
-    mean_y = np.mean(y)
-
-    # Calculate scale_THR using the formula
-    numerator = np.sum((x - mean_x) * (y - mean_y))
-    denominator = np.sum((x - mean_x) ** 2)
-    scale_THR = numerator / denominator
-    # Calculate offset_THR using the formula
-    offset_THR = mean_y - scale_THR * mean_x
-
-    return scale_THR, offset_THR
-
-
 # Real-time LMS filter
 def real_time_LMS(front_x, front_y, front_z, ref_x, ref_y, ref_z):
     '''
@@ -126,6 +88,43 @@ def real_time_LMS(front_x, front_y, front_z, ref_x, ref_y, ref_z):
     denoise_z = front_z[NFilt-1:]-pred_z
     return denoise_x, denoise_y, denoise_z
 
+
+# Rotation transformation
+def rotation3d(dx2, dy2, dz2):
+    # rotation matrix
+    alpha = -math.pi/2 #
+    beta = math.pi/2  #
+    gamma = math.pi/2 # 
+    rotation_mat = np.array(
+    [
+        [math.cos(alpha)*math.cos(gamma)-math.cos(beta)*math.sin(alpha)*math.sin(gamma), math.sin(alpha)*math.cos(gamma)+math.cos(beta)*math.cos(alpha)*math.sin(gamma), math.sin(beta)*math.sin(gamma)], 
+        [-math.cos(alpha)*math.sin(gamma)-math.cos(beta)*math.sin(alpha)*math.cos(gamma), -math.sin(alpha)*math.sin(gamma)+math.cos(beta)*math.cos(alpha)*math.cos(gamma), math.sin(beta)*math.cos(gamma)],
+        [math.sin(beta)*math.sin(alpha), -math.sin(beta)*math.cos(alpha), math.cos(beta)]
+    ])
+    xyz = np.array([dx2, dy2, dz2])
+    new_x, new_y, new_z = np.dot(rotation_mat, xyz)
+
+    return new_x, new_y, new_z
+
+# Determine the scale and offset thresholds 
+# between the time series data from the reference sensor and the front sensor
+def determine_THR(x, y):
+    x = np.array(x)
+    y = np.array(y)
+
+    # Calculate the scale_THR and offset_THR using linear regression
+    n = len(x)
+    mean_x = np.mean(x)
+    mean_y = np.mean(y)
+
+    # Calculate scale_THR using the formula
+    numerator = np.sum((x - mean_x) * (y - mean_y))
+    denominator = np.sum((x - mean_x) ** 2)
+    scale_THR = numerator / denominator
+    # Calculate offset_THR using the formula
+    offset_THR = mean_y - scale_THR * mean_x
+
+    return scale_THR, offset_THR
 
 
 
