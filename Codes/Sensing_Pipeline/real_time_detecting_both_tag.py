@@ -11,7 +11,7 @@ from utils import *
 
 
 # ------------Experiment Settings-------------
-scenario = "Test_"
+scenario = "Detecting_both_tag_"
 cnt_exp = 1
 # Number of sensors
 num = 14

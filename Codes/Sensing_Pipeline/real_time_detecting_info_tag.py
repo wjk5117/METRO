@@ -1,3 +1,6 @@
+'''
+Only use x-axis data to detect the 0-degree passive magnet
+'''
 from scipy.signal import savgol_filter
 import multiprocessing as mp
 from can.bus import BusState
@@ -27,8 +30,8 @@ COM = 'COM11'
 wnd = 15  # Gaussian Smoother for the raw signal data
 wnd_d = 5  # Gaussian Smoother for the 1st derivative data
 SG_wnd = 5 # Savgol filter window size
-delta_thrd_x, delta_thrd_z = ([16] * num for _ in range(2))
-amp_thrd_x, amp_thrd_z = ([1.5] * num for _ in range(2))
+delta_thrd_x = ([16] * num for _ in range(1))
+amp_thrd_x = ([1.5] * num for _ in range(1))
 # Speed info: km/h
 default_speed = 10
 cur_speed = 20
@@ -39,15 +42,15 @@ delta_t = 0.0025 * 50 * default_speed / cur_speed
 # Constants and Globals
 raw_result = []
 raw_name = ['Time Stamp'] + ['Sensor ' + str(i) for i in range(1, num + 1)]
-no_x, no_z = 0, 0  # total number of peaks
+no_x = 0  # total number of peaks
 n = 0  # index for the data points
 
-x, sx, dx, sdx, z, sz, dz, sdz = ([[] for _ in range(num)] for _ in range(8))
-slope_list_x, slope_list_z, raw_list_x, raw_list_z = ([[] for _ in range(num)] for _ in range(4))
-slope_thrd_x, slope_thrd_z = ([10000] * num for _ in range(2))
-estimate_x, estimate_z = ([True] * num for _ in range(2))
-LastRAW_x, LastRAW_z = ([0] * num for _ in range(2))  # Record the time of last peak
-N_flag_x, S_flag_x, N_flag_z, S_flag_z = ([0] * num for _ in range(4))
+x, sx, dx, sdx = ([[] for _ in range(num)] for _ in range(4))
+slope_list_z, raw_list_z = ([[] for _ in range(num)] for _ in range(2))
+slope_thrd_z = ([10000] * num for _ in range(1))
+estimate_z = ([True] * num for _ in range(1))
+LastRAW_z = ([0] * num for _ in range(1))  # Record the time of last peak
+N_flag_z, S_flag_z = ([0] * num for _ in range(2))
 
 SmoothVector_r = gaussian(np.arange(wnd + 1)[1:], wnd / 2, wnd / 2)
 SmoothVector_r = SmoothVector_r / (np.sum(SmoothVector_r))
