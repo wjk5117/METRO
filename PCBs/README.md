@@ -9,7 +9,7 @@ For better extensibility and mass production, we divide the sensor bar into six 
 
 For each reference sensor (i.e., "Left_Ref_Sensor" and "Right_Ref_Sensor"), the size is 3.2 cm x 3.2 cm.
 
-"MCU" is the PCB design of the Teensy 4.1 Control Board used in METRO. 
+"MCU" is the PCB design of the Teensy 4.1 Microcontroller Development Board used in METRO. 
 
 "Bom" is the materials and components required to build a sensor array.
 
