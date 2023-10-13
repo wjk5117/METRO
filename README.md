@@ -26,11 +26,13 @@ Arduino IDE is used for
 3. Install the Adafruit MLX90393 Library for Arduino IDE:
 
 
+
+
 ## Python environment setup
 
 
 ## PCAN-View
-
+To get the velocity and steering angle data from the CAN BUS, we use the 
 
 
 # Run a Quick Demo
