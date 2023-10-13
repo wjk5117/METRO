@@ -191,7 +191,7 @@ def detectMag(listFrames, listFrames2):
 
                 # Savitzky–Golay filter for 1st derivative
                 for i in range(num):
-                    filtered = savgol_filter(sx[i][-SG_wnd:], SG_wnd, 1, deriv=1)
+                    filtered = savgol_filter(sx[i][-SG_wnd:], SG_wnd, 5, deriv=1)
                     dx[i].append(filtered[(SG_wnd - 1) // 2])  # avoid boundary effect
                     
                     filtered_z = savgol_filter(sz[i][-SG_wnd:], SG_wnd, 1, deriv=1)
