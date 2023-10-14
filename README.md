@@ -16,7 +16,7 @@ To use METRO, the following hardwares and development tools are required:
 * [PCAN-View](#pcan-view)
 
 ## METRO's sensor array
-We provide the manufacturing details of the METRO's sensor array in `/PCB`, please see the related [README](./PCBs/README.md) file.
+We provide the manufacturing details of the METRO's sensor array in `/PCBs`, please see the related [README](./PCBs/README.md) file.
 
 ## Arduino IDE setup
 Arduino IDE is used for 

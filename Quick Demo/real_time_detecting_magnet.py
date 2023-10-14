@@ -200,7 +200,7 @@ def detectMag():
                     if np.sum(np.array(S_flag_z)) > 0:
                         no_z += 1
                         print('No. %d Overall: Detect a S' % no_z)
-
+                        
                 n = n + 1
             cnt += 1
 
