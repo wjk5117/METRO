@@ -21,4 +21,4 @@ You may need to set the number of the MLX90393 (on line 4) and the chip select p
     - By default, the code can reliably detect the N/S polarities of a N52-grade cubic magnet with a size of 15 mm x 15 mm x 9.5 mm at a maximal height of ~30 cm.
     - You can of course use a small passive magnet by replacing the initial parameters and thresholds settings on line 41-51.
 
-For the complete code implementation of the METRO system, please connect to the CAN network of a vehicle and run the codes in `../Codes`.`..Codes/Sensing_Pipeline`.
+For the complete code implementation of the METRO system, please connect to the CAN network of a vehicle and run the codes in `..Codes/Sensing_Pipeline`.
