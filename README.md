@@ -5,7 +5,7 @@ As a brief summary, road surface markings, like symbols and line markings, are v
 traffic infrastructures for driving safety and efficiency. However,
 real-world conditions can impair the utility of existing road markings. For example, adverse weather conditions such as snow and
 rain can quickly obliterate visibility.
-Existing methods (e.g., mmWave, RFID) suffer from several key issues, such as
+Existing vision-free methods (e.g., mmWave, RFID) suffer from several key issues, such as
 signal distortion due to the multi-path effect in high-speed scenarios
 and high deployment costs. 
 
@@ -41,8 +41,8 @@ We provide the manufacturing details of the METRO's sensor array in `/PCBs`, ple
 Arduino IDE is used for programing the sensor array.
 
 1. Download and install [Arduino IDE](https://www.arduino.cc/en/software)
-2. Set up the Arduino IDE for the Teensy 4.1 Development Board, according to the [official instructions](https://www.pjrc.com/teensy/td_download.html).
-Once completed, you will be able to access board information by clicking on the 'Tools' menu.
+2. Set up the Arduino IDE for the Teensy 4.1 Development Board, according to the [official instruction](https://www.pjrc.com/teensy/td_download.html).
+Once completed, you will be able to access the board information by clicking on the 'Tools' menu
   ![plot](./Img/teensy_arduino_configuration.png)
 
 3. Install the Adafruit MLX90393 Library for the Arduino IDE:
@@ -66,7 +66,8 @@ To obtain velocity and steering angle data from the vehicle's CAN network,
 a [PCAN-USB adapter](https://www.peak-system.com/PCAN-USB.199.0.html?&L=1) to connect to the vehicle and the official software [PCAN-View](https://www.peak-system.com/PCAN-View.242.0.html?&L=1) are required.
 
 # Run a Quick Demo
-You can find a quick demo in the `/Quick_Demo` directory that does not require a connection to the vehicle's CAN network. For more information, please refer to the accompanying [README](./Quick_Demo/README.md) file.
+You can find a quick demo in the `/Quick_Demo` directory that does not require a connection to the vehicle's CAN network. For more information, please refer to the related [README](./Quick_Demo/README.md) file.
+
 
 # Citing METRO
 If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below.

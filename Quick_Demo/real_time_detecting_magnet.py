@@ -45,7 +45,7 @@ delta_thrd_z = ([16] * num for _ in range(1))
 amp_thrd_z = ([1.5] * num for _ in range(1))
 # Speed info: km/h
 default_speed = 10
-cur_speed = 5
+cur_speed = 1.8
 # Time threshold to eliminate the duplicate detection of 
 # the same magnet from two adjacent sensors
 delta_t = 0.0025 * 50 * default_speed / cur_speed
