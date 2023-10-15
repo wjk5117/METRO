@@ -3,6 +3,7 @@
 
 ## Description
 This directory contains the complete PCB design for METRO's sensor array, including a sensor bar for detecting on-road METRO tags and two reference sensors for eliminating the wheel noise. 
+![plot](../Img/sensor_array_deploy.png)
 
 The size of the long sensor bar is 3.2 cm x 177.0 cm.
 For better extensibility and mass production, we divide the sensor bar into six segments (i.e., "LeftBar1", "LeftBar2", "LeftBar3", "RightBar1", "RightBar2", "RightBar3").
@@ -17,6 +18,9 @@ For each reference sensor (i.e., "Left_Ref_Sensor" and "Right_Ref_Sensor"), the 
 Each segment of the long sensor bar is connected with a female and a U-shaped male 2.54mm pin header.
 Two 24-pin female headers are welded to the MCU board to connect the Teensy 4.1 Controller Board.
 
+
+## Curcuit Schematic
+![plot](../Img/circuit_schematic.png)
 
 ## Design Tool and Library
 We utilize Altium Designer (version 20.0.13) to design PCB boards.

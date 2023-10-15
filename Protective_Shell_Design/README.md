@@ -3,6 +3,8 @@
 ## Description
 This directory contains the 3D-printed protective shell design for each cubic passive magnet employed in METRO system.
 The diameter of the shell is 10 cm.
+![plot](../Img/protective_shell.png)
+
 We provide both STL (stereolithography) and G-code files.
 
 - line_tag.stl: The STL file for the protective shell designed for the 90-degree magnet.
