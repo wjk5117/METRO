@@ -5,7 +5,7 @@
 Adafruit_MLX90393 sensor[num];
 
 // CS pins of Teensy 4.1 MCU
-int CS[num] = {A0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13};
+int CS[num] = {A1, A0, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, A13};
 float data_array[num*3+1];
 
 void setup()

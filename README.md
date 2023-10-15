@@ -5,6 +5,9 @@ As a brief summary, road surface markings, like symbols and line markings, are v
 traffic infrastructures for driving safety and efficiency. However,
 real-world conditions can impair the utility of existing road markings. For example, adverse weather conditions such as snow and
 rain can quickly obliterate visibility.
+Existing methods (e.g., mmWave, RFID) suffer from several key issues, such as
+signal distortion due to the multi-path effect in high-speed scenarios
+and high deployment costs. 
 
 We propose a novel MagnETic ROad marking system (METRO)
 for robust recognition of road markings at low cost and high deployability. METRO pairs (a) easily deployable passive magnetic road
@@ -38,11 +41,11 @@ We provide the manufacturing details of the METRO's sensor array in `/PCBs`, ple
 Arduino IDE is used for programing the sensor array.
 
 1. Download and install [Arduino IDE](https://www.arduino.cc/en/software)
-2. Configure Arduino IDE for the Teensy 4.1 Development Board, according to the [official instruction](https://www.pjrc.com/teensy/td_download.html)
-After this step, you can see the boad information when you click the Tools menu item:
+2. Set up the Arduino IDE for the Teensy 4.1 Development Board, according to the [official instructions](https://www.pjrc.com/teensy/td_download.html).
+Once completed, you will be able to access board information by clicking on the 'Tools' menu.
   ![plot](./Img/teensy_arduino_configuration.png)
 
-3. Install the Adafruit MLX90393 Library for Arduino IDE:
+3. Install the Adafruit MLX90393 Library for the Arduino IDE:
     - Click 'Sketch' --> 'Include Library' --> 'Manage Libraries...'
     ![plot](./Img/sensor_arduino_library.png)
     - Search for Adafruit MLX90393, and install the Adafruit MLX90393 library:
@@ -52,17 +55,18 @@ After this step, you can see the boad information when you click the Tools menu 
 
 
 ## Python environment setup
-The sensing pipeline of METRO system is implemented based on Python language.
+The METRO system's sensing pipeline is developed using the Python programming language.
 
-1. Install the python environment. You can install the [official python](https://www.python.org/downloads/) or [Anaconda](https://www.anaconda.com/download)
-2. Install all dependencies listed in `./Code/Requirements.txt` using 'pip install \<package-name\>'
+1. Install the Python environment. You can install the [official Python distribution](https://www.python.org/downloads/) or [Anaconda](https://www.anaconda.com/download)
+2. Install all the dependencies listed in the `./Code/Requirements.txt` file by using the command 'pip install \<package-name\>'.
 
 
 ## Connect to the CAN network
-To get the velocity and steering angle data from the CAN network of a vehicle, a [PCAN-USB adapter](https://www.peak-system.com/PCAN-USB.199.0.html?&L=1) for connecting the vehicle and the offical software [PCAN-View](https://www.peak-system.com/PCAN-View.242.0.html?&L=1) is required.
+To obtain velocity and steering angle data from the vehicle's CAN network,
+a [PCAN-USB adapter](https://www.peak-system.com/PCAN-USB.199.0.html?&L=1) to connect to the vehicle and the official software [PCAN-View](https://www.peak-system.com/PCAN-View.242.0.html?&L=1) are required.
 
 # Run a Quick Demo
-We provide a quick demo without connecting the CAN network of a vehicle in `/Quick Demo`, please see the related [README](./Quick_Demo/README.md) file for more details.
+You can find a quick demo in the `/Quick_Demo` directory that does not require a connection to the vehicle's CAN network. For more information, please refer to the accompanying [README](./Quick_Demo/README.md) file.
 
 # Citing METRO
-If you use METRO in your research or wish to refer to the baseline results, please use the following BibTeX entry.
+If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below.
