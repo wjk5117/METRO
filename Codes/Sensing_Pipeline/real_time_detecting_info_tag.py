@@ -76,6 +76,8 @@ denoise_list_lx, denoise_list_ly, denoise_list_lz, denoise_list_rx, denoise_list
 ref_list_lx, ref_list_ly, ref_list_lz, ref_list_rx, ref_list_ry, ref_list_rz = ([] for _ in range(6))
 
 
+
+
 # Get velocity and steering wheel angle data (SWA) from CAN Bus
 def read_Speed_SWA(listFrames, listFrames2):
     BUS = can.interface.Bus(bustype="pcan", channel="PCAN_USBBUS1", bitrate=500000)
