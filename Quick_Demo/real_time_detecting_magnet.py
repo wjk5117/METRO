@@ -41,8 +41,8 @@ COM = 'COM11'
 wnd = 15  # Gaussian Smoother for the raw signal data
 wnd_d = 5  # Gaussian Smoother for the 1st derivative data
 SG_wnd = 5 # Savgol filter window size
-delta_thrd_z = ([16] * num for _ in range(1))
-amp_thrd_z = ([1.5] * num for _ in range(1))
+delta_thrd_z = [16] * num 
+amp_thrd_z = [1.5] * num
 # Speed info: km/h
 default_speed = 10
 cur_speed = 1.8
