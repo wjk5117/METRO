@@ -58,10 +58,7 @@ Once completed, you will be able to access the board information by clicking on 
 The METRO system's sensing pipeline is developed using the Python programming language.
 
 1. Install the Python environment. You can install the [official Python distribution](https://www.python.org/downloads/) or [Anaconda](https://www.anaconda.com/download)
-2. Install all the dependencies listed in the `./Code/requirements.txt` file by using the command:
-```shell
-pip install -r requirements.txt
-```
+2. Install all the dependencies listed in the `./Code/requirements.txt` file by using the command 'pip install \<package-name\>'.
 
 
 ## Connect to the CAN bus
