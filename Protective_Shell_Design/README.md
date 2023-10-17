@@ -8,7 +8,7 @@ We provide both STL (stereolithography) and G-code files for your convenience.
 
 - line_tag.stl: The STL file for the protective shell designed for the 90-degree magnet.
 - information_tag.stl: the STL file for the protective shell designed for the 0-degree magnet.
-- gcode.zip: contains the G-code file for the protective shells designed for the 90-degree magnet and 0-degree magnet.
+- gcode.zip: contains the G-code file for the protective shells designed for both the 90-degree magnet and 0-degree magnet.
 
 ## Design tool
 We utilize [SolidWorks](https://www.solidworks.com/sw/support/downloads.htm) (version 2021) for designing all the STL files.
