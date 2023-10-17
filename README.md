@@ -58,7 +58,7 @@ Once completed, you will be able to access the board information by clicking on 
 The METRO system's sensing pipeline is developed using the Python programming language.
 
 1. Install the Python environment. You can install the [official Python distribution](https://www.python.org/downloads/) or [Anaconda](https://www.anaconda.com/download)
-2. Install all the dependencies listed in the `./Code/Requirements.txt` file by using the command 'pip install \<package-name\>'.
+2. Install all the dependencies listed in the `./Code/requirements.txt` file by using the command 'pip install \<package-name\>'.
 
 
 ## Connect to the CAN bus
@@ -66,7 +66,7 @@ To obtain velocity and steering angle data from the vehicle's Controller Area Ne
 a [PCAN-USB adapter](https://www.peak-system.com/PCAN-USB.199.0.html?&L=1) to connect to the vehicle and the official software [PCAN-View](https://www.peak-system.com/PCAN-View.242.0.html?&L=1) are required.
 
 With these tools, you can connect to the CAN bus with the following Python script.
-```
+```python
 import can
 from can.bus import BusState
 from can.interfaces.pcan.basic import *
@@ -76,7 +76,7 @@ BUS.state = BusState.PASSIVE
 ```
 
 Then, you can get the real-time data from the CAN network by running the following code.
-```
+```python
 msg = BUS.recv(1)
 ```
 
