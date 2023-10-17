@@ -130,7 +130,7 @@ def detectMag():
                     if len(slope_list_z[i]) == 50:
                         if estimate_z[i]:
                             slope_thrd_z[i] = amp_thrd_z[i] * np.abs(np.array(slope_list_z[i][1:])).max()
-                            print('X axis of sensor %d: Pre-done with slope threshold equaling to %.2f' % (
+                            print('Z axis of sensor %d: Pre-done with slope threshold equaling to %.2f' % (
                                 i + 1, slope_thrd_z[i]))
                             delta_time = (t[n] - t[n - 50]) / 50
                             print('Sampling rate: %.2f Hz' % (1 / delta_time))
