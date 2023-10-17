@@ -101,11 +101,12 @@ def detectMag():
                 interval, = struct.unpack('f', data[(12 * num):(4 + 12 * num)])
                 current += interval / 1000 / 1000
 
-
+                for i in range(num):
+                    z[i].append(sensors[i, 2])
                 # buffer some x-axis data points before starting the detection
                 if n <= max(wnd, SG_wnd):
                     for i in range(num):
-                        sz[i].append(sensors[i, 0])
+                        sz[i].append(sensors[i, 2])
                         dz[i].append(0)
                         sdz[i].append(0)
                     n += 1
