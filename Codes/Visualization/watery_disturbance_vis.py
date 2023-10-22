@@ -4,10 +4,13 @@ import seaborn as sns
 import numpy as np
 
 
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
+
 # Fig.12(c): Impact on magnetic field
 fs = 30
 x = np.arange(11)
-plt.figure(figsize=[12, 7])
+plt.figure(figsize=[12, 8])
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 plt.tick_params(width=1, length=7, labelsize=fs)
@@ -43,7 +46,7 @@ plt.close()
 
 # Fig.12(d): Impact on RSS
 fs = 30
-plt.figure(figsize=[12, 7])
+plt.figure(figsize=[12, 8])
 x = np.arange(11)
 labels = ['0', '2', '4', '6', '8', '10', '12', '14', '16', '18', '20']
 plt.rcParams['xtick.direction'] = 'in'

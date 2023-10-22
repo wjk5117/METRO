@@ -3,7 +3,8 @@ from pandas import DataFrame
 import seaborn as sns
 import numpy as np
 
-
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
 # Fig.17(a): Encoding capacity under diferent segmentation distances
 fs = 30
 plt.figure(figsize=[12, 7])

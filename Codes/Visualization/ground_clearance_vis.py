@@ -4,6 +4,8 @@ import seaborn as sns
 import numpy as np
 
 
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
 # Fig.14(a): Ground clearance of difference types of cars
 labels = ['Sedans', 'Utility Vehicles', 'Vans', 'Heavy Trucks']
 fs = 30

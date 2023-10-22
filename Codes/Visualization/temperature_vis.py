@@ -3,11 +3,12 @@ from pandas import DataFrame
 import seaborn as sns
 import numpy as np
 
-
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
 # Fig.16: Impact of temperature
 fs = 30
 x = np.arange(7)
-plt.figure(figsize=[12, 8])
+plt.figure(figsize=[12, 7])
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 plt.tick_params(width=1, length=7)

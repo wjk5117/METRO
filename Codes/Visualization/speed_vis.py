@@ -4,6 +4,8 @@ import seaborn as sns
 import numpy as np
 
 
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
 # Fig.13(a): Detection accuracy w/ different polarities
 plt.figure(figsize=[11, 7])
 x = np.arange(9)
@@ -24,7 +26,7 @@ plt.xlabel(r'Speed (MPH)', fontsize=fs)
 plt.ylabel(r'Accuracy', fontsize=fs)
 plt.ylim(0.5, 1.02)
 plt.tight_layout()
-plt.savefig('speed_acc_v4.pdf')
+plt.savefig('fig13a.pdf')
 plt.close()
 
 
@@ -74,5 +76,5 @@ ax.grid(zorder=0, linestyle='--', alpha=0.5)
 plt.axhline(y=1.0, color='grey', linestyle='--', linewidth='3', zorder=1, alpha=0.7)
 plt.ylim(0.95, 1.05)
 plt.tight_layout()
-plt.savefig('Fig13b.pdf')
+plt.savefig('Fig13b_2.pdf')
 plt.close()
