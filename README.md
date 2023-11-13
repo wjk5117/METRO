@@ -88,4 +88,4 @@ You can find a quick demo in the `/Quick_Demo` directory that does not require a
 
 
 # Citing METRO
-If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below.
+If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below (TBD).

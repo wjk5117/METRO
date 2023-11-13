@@ -3,13 +3,21 @@ from pandas import DataFrame
 import seaborn as sns
 import numpy as np
 
-
+# plt.style.use('dark_background')
 plt.rcParams['pdf.fonttype'] = 42
 plt.rcParams['ps.fonttype'] = 42
 # Fig.13(a): Detection accuracy w/ different polarities
 plt.figure(figsize=[11, 7])
 x = np.arange(9)
-plt.grid(axis='both', zorder=0, linestyle='--', alpha=0.5)
+ax = plt.gca()  # gca: get current axis得到当前轴
+# ax.spines['right'].set_color('none')
+# ax.spines['top'].set_color('none')
+width = 3
+ax.spines['bottom'].set_linewidth(width)
+ax.spines['left'].set_linewidth(width)
+ax.spines['right'].set_linewidth(width)
+ax.spines['top'].set_linewidth(width)
+plt.grid(axis='both', zorder=0, linestyle='--', alpha=0.5, linewidth=1.5)
 plt.rcParams['xtick.direction'] = 'in'
 plt.rcParams['ytick.direction'] = 'in'
 plt.tick_params(width=1, length=7)
@@ -26,7 +34,7 @@ plt.xlabel(r'Speed (MPH)', fontsize=fs)
 plt.ylabel(r'Accuracy', fontsize=fs)
 plt.ylim(0.5, 1.02)
 plt.tight_layout()
-plt.savefig('fig13a.pdf')
+plt.savefig('fig13a.png')
 plt.close()
 
 
@@ -60,6 +68,13 @@ plt.tick_params(width=1, length=7)
 ax = sns.boxplot(x='Speed (MPH)', y='Distance ratio', data=df, linewidth=4, color='red',
                  order=[r"15", r"20", r"25", r"30", r"35", r"40", r"45", r"50", r"55"], width=0.3, saturation=.75,
                  zorder=2)
+# ax = plt.gca()  # gca: get current axis得到当前轴
+
+width = 3
+ax.spines['bottom'].set_linewidth(width)
+ax.spines['left'].set_linewidth(width)
+ax.spines['right'].set_linewidth(width)
+ax.spines['top'].set_linewidth(width)
 for i, box in enumerate([p for p in ax.patches if not p.get_label()]):
     color = box.get_facecolor()
     box.set_edgecolor(color)
@@ -70,11 +85,12 @@ for i, box in enumerate([p for p in ax.patches if not p.get_label()]):
 fs = 30
 plt.xticks(fontsize=fs)
 plt.yticks(fontsize=fs)
+
 ax.set_xlabel('Speed (MPH)', fontsize=fs)
 ax.set_ylabel("Relative distance ratio", fontsize=fs)
-ax.grid(zorder=0, linestyle='--', alpha=0.5)
-plt.axhline(y=1.0, color='grey', linestyle='--', linewidth='3', zorder=1, alpha=0.7)
+ax.grid(zorder=0, linestyle='--', alpha=0.5, linewidth=1.5)
+plt.axhline(y=1.0, color='yellow', linestyle='--', linewidth='3', zorder=1, alpha=0.7)
 plt.ylim(0.95, 1.05)
 plt.tight_layout()
-plt.savefig('Fig13b_2.pdf')
+plt.savefig('Fig13b.png')
 plt.close()
