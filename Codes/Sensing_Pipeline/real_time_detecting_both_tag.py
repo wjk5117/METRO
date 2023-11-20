@@ -60,6 +60,11 @@ estimate_x, estimate_z = ([True] * num for _ in range(2))
 LastRAW_x, LastRAW_z = ([0] * num for _ in range(2))  # Record the time of last peak
 N_flag_x, S_flag_x, N_flag_z, S_flag_z = ([0] * num for _ in range(4))
 
+
+
+# def gaussian(x, pos, wid):
+#     g = np.exp(-((x - pos) / (0.60056120439323 * wid)) ** 2)
+#     return g
 SmoothVector_r = gaussian(np.arange(wnd + 1)[1:], wnd / 2, wnd / 2)
 SmoothVector_r = SmoothVector_r / (np.sum(SmoothVector_r))
 SmoothVector_d = gaussian(np.arange(wnd_d + 1)[1:], wnd_d / 2, wnd_d / 2)
@@ -171,6 +176,10 @@ def detectMag(listFrames, listFrames2):
                     ref_list_rx, ref_list_ry, ref_list_rz = ref_list_rx[1:], ref_list_ry[1:], ref_list_rz[1:]
 
 
+                for i in range(num):
+                    z[i].append(sensors[i, 2])
+                    x[i].append(sensors[i, 0])
+                    
                 # buffer x-axis and z-axis data before starting the detection
                 if n <= max(wnd, SG_wnd):
                     for i in range(num):

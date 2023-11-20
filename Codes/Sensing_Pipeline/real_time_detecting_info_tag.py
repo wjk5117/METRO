@@ -167,6 +167,10 @@ def detectMag(listFrames, listFrames2):
                     ref_list_lx, ref_list_ly, ref_list_lz = ref_list_lx[1:], ref_list_ly[1:], ref_list_lz[1:]
                     ref_list_rx, ref_list_ry, ref_list_rz = ref_list_rx[1:], ref_list_ry[1:], ref_list_rz[1:]
 
+
+                for i in range(num):
+                    x[i].append(sensors[i, 0])
+
                 # buffer some x-axis data points before starting the detection
                 if n <= max(wnd, SG_wnd):
                     for i in range(num):
