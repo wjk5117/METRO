@@ -91,7 +91,7 @@ You can find a quick demo in the `/Quick_Demo` directory that does not require a
 If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below.
 
 ```BibTex
-@inproceedings{10.1145/3625687.3625809,
+@inproceedings{metro,
 author = {Wang, Jike and Wang, Shanmu and Iravantchi, Yasha and Wang, Mingke and Sample, Alanson and Shin, Kang G. and Wang, Xinbing and Zhou, Chenghu and Chen, Dongyao},
 title = {METRO: Magnetic Road Markings for All-weather, Smart Roads},
 year = {2024},
@@ -104,7 +104,7 @@ booktitle = {Proceedings of the 21st ACM Conference on Embedded Networked Sensor
 pages = {280–293},
 numpages = {14},
 keywords = {magnetic sensing, all-weather road markings, magnetometer},
-location = {<conf-loc>, <city>Istanbul</city>, <country>Turkiye</country>, </conf-loc>},
+location = {, Istanbul, Turkiye, },
 series = {SenSys '23}
 }
 ```
