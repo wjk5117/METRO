@@ -90,6 +90,21 @@ You can find a quick demo in the `/Quick_Demo` directory that does not require a
 # Citing METRO
 If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below.
 
-`
-Jike Wang, Shanmu Wang, Yasha Iravantchi, Mingke Wang, Alanson Sample, Kang G. Shin, Xinbing Wang, Chenghu Zhou, and Dongyao Chen. 2024. METRO: Magnetic Road Markings for All-weather, Smart Roads. In Proceedings of the 21st ACM Conference on Embedded Networked Sensor Systems (SenSys '23). Association for Computing Machinery, New York, NY, USA, 280–293. https://doi.org/10.1145/3625687.3625809
-`
+```BibTex
+@inproceedings{10.1145/3625687.3625809,
+author = {Wang, Jike and Wang, Shanmu and Iravantchi, Yasha and Wang, Mingke and Sample, Alanson and Shin, Kang G. and Wang, Xinbing and Zhou, Chenghu and Chen, Dongyao},
+title = {METRO: Magnetic Road Markings for All-weather, Smart Roads},
+year = {2024},
+isbn = {9798400704147},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3625687.3625809},
+doi = {10.1145/3625687.3625809},
+booktitle = {Proceedings of the 21st ACM Conference on Embedded Networked Sensor Systems},
+pages = {280–293},
+numpages = {14},
+keywords = {magnetic sensing, all-weather road markings, magnetometer},
+location = {<conf-loc>, <city>Istanbul</city>, <country>Turkiye</country>, </conf-loc>},
+series = {SenSys '23}
+}
+```
