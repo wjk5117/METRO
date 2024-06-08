@@ -3,7 +3,7 @@ from pandas import DataFrame
 import seaborn as sns
 import numpy as np
 
-# plt.style.use('dark_background')
+plt.style.use('dark_background')
 plt.rcParams['pdf.fonttype'] = 42
 plt.rcParams['ps.fonttype'] = 42
 # Fig.14(a): Ground clearance of difference types of cars
@@ -109,7 +109,7 @@ plt.yticks(fontsize=fs)
 ax.set_xlabel('Ground clearance (cm)', fontsize=fs)
 ax.set_ylabel("Relative distance ratio", fontsize=fs)
 plt.grid(zorder=0, linestyle='--', alpha=0.5, linewidth=1.5)
-plt.axhline(y=1.0, color='yellow', linestyle='--', linewidth='3', alpha=0.7)
+plt.axhline(y=1.0, color='blue', linestyle='--', linewidth='3', alpha=0.7)
 plt.ylim(0.94, 1.05)
 plt.tight_layout()
 plt.savefig('Fig14c.png')

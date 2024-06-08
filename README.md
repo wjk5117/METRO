@@ -88,4 +88,8 @@ You can find a quick demo in the `/Quick_Demo` directory that does not require a
 
 
 # Citing METRO
-If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below (TBD).
+If you use METRO in your research or wish to refer to the baseline results, please use the provided BibTeX entry below.
+
+`
+Jike Wang, Shanmu Wang, Yasha Iravantchi, Mingke Wang, Alanson Sample, Kang G. Shin, Xinbing Wang, Chenghu Zhou, and Dongyao Chen. 2024. METRO: Magnetic Road Markings for All-weather, Smart Roads. In Proceedings of the 21st ACM Conference on Embedded Networked Sensor Systems (SenSys '23). Association for Computing Machinery, New York, NY, USA, 280–293. https://doi.org/10.1145/3625687.3625809
+`
